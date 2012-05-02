@@ -1,0 +1,7 @@
+(defun c:oh ()
+(setq p1 (getpoint "Select first point: ")
+      p2 (getpoint p1 "Select second point: ")
+      di (distance p1 p2)
+      di (/ di 2)
+)
+)

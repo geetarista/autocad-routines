@@ -1,0 +1,27 @@
+(defun c:annotatearea ()
+    (vl-load-com)
+    (setq ol (getvar "clayer")
+        oc (getvar "cmdecho")
+        )
+    (setvar "clayer" ala)
+    (setvar "cmdecho" 0)
+    (setq point (getpoint "\nSelect point for text insertion:"))
+    (while point
+	(command "_-boundary" point "")
+	(setq reg (entlast)
+	      vreg (vlax-ename->vla-object reg)
+	      area (vla-get-area vreg)
+	      area (strcat
+		       "("
+		       (rtos area 2 0)
+		       ")"
+		   )
+	)
+	(entdel reg)
+	(command "_text" "s" atsty "mc" point ats 0 area)
+	(setq point (getpoint "\nSelect point for text insertion:"))
+    )
+    (setvar "clayer" ol)
+    (setvar "cmdecho" oc)
+    (princ)
+)
